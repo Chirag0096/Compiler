@@ -34,20 +34,17 @@ class Application(tk.Frame):
 
     def generate_ast(self):
         code = self.code_entry.get('1.0', 'end-1c')
-        G, error = ASTGenerator.generate(code)
+        dot, error = ASTGenerator.generate(code)
         self.ast_text.delete('1.0', tk.END)
-        if G is not None:
-            pos = nx.spring_layout(G)
-            labels = nx.get_node_attributes(G, 'label')
-            nx.draw(G, pos, labels=labels, with_labels=True)
-            plt.show()
+        if dot is not None:
+            dot.render('ast.gv', view=True)
         else:
             self.ast_text.insert(tk.END, error)
+
 
     def execute_code(self):
         code = self.code_entry.get('1.0', 'end-1c')
         try:
             exec(code)
         except Exception as e:
-            self.ast_text.delete('1.0', tk.END)
             self.ast_text.insert(tk.END, str(e))
