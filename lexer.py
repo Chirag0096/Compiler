@@ -5,7 +5,6 @@ class MyLexer(Lexer):
     tokens = { IDENTIFIER, NUMBER, PLUS, MINUS, TIMES, DIVIDE,
                ASSIGN, PRINT, LPAREN, RPAREN, STRING, COMMENT }
     ignore = ' \t'  # Ignore spaces and tabs
-
     # Regular expression rules for tokens
     IDENTIFIER = r'[a-zA-Z][a-zA-Z0-9]*'
     NUMBER = r'\d+(\.\d+)?'  # Match integers and floats
@@ -45,14 +44,12 @@ class MyLexer(Lexer):
     def error(self, t):
         print(f"Illegal character '{t.value[0]}'")
         self.index += 1
-
+        
 lexer = MyLexer()
 # Input statement
 source_code = input("Enter your code: ")
-
 # Tokenize the input
 tokens = lexer.tokenize(source_code)
-
 # Print the tokens
 for token in tokens:
     print(token)
